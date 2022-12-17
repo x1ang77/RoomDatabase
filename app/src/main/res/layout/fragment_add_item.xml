@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/app_bg"
-    android:padding="30dp"
+    android:padding="30sp"
     tools:context=".fragments.ui.AddItemFragment">
 
     <androidx.cardview.widget.CardView
@@ -13,19 +13,20 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="24dp"
+        app:cardBackgroundColor="@color/mint"
         app:cardCornerRadius="15dp"
-        app:cardElevation="8dp"
+        app:cardElevation="4sp"
         app:layout_constraintBottom_toTopOf="@id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:cardBackgroundColor="@color/mint"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingHorizontal="10dp"
             android:background="#00FFFFFF"
+            android:paddingHorizontal="10dp"
             android:paddingTop="10dp">
 
             <EditText
@@ -34,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:hint="Title"
                 android:inputType="textMultiLine"
-                android:padding="8dp"
+                android:padding="4sp"
                 android:textSize="25sp"
                 android:textStyle="bold" />
 
@@ -42,34 +43,34 @@
                 android:id="@+id/etDetails"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@id/etTitle"
-                android:gravity="top"
                 android:background="#00FFFFFF"
+                android:gravity="top"
                 android:hint="Details"
                 android:inputType="textMultiLine"
-                android:padding="8dp"
+                android:padding="4sp"
                 android:textSize="20sp" />
-        </RelativeLayout>
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/btnSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="8dp"
+        android:layout_marginVertical="4sp"
         android:backgroundTint="@color/black"
         app:icon="@drawable/ic_check"
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
+    <com.google.android.flexbox.FlexboxLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:gravity="center"
-        android:orientation="horizontal"
+        android:layout_marginBottom="24sp"
+        app:flexWrap="wrap"
+        app:flexDirection="row"
+        app:justifyContent="space_between"
         app:layout_constraintBottom_toTopOf="@id/btnSave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -78,8 +79,8 @@
             android:id="@+id/btnBrown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4sp"
+            android:layout_marginVertical="4sp"
             android:backgroundTint="@color/brown"
             app:icon="@drawable/ic_check"
             app:iconTint="@color/brown" />
@@ -88,8 +89,8 @@
             android:id="@+id/btnMauve"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4sp"
+            android:layout_marginVertical="4sp"
             android:backgroundTint="@color/mauve"
             app:icon="@drawable/ic_check"
             app:iconTint="@color/mauve" />
@@ -98,8 +99,8 @@
             android:id="@+id/btnBlush"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4sp"
+            android:layout_marginVertical="4sp"
             android:backgroundTint="@color/blush"
             app:icon="@drawable/ic_check"
 
@@ -109,8 +110,8 @@
             android:id="@+id/btnMint"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4sp"
+            android:layout_marginVertical="4sp"
             android:backgroundTint="@color/mint"
             app:icon="@drawable/ic_check"
             app:iconTint="@color/mint" />
@@ -119,11 +120,11 @@
             android:id="@+id/btnIce"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="8dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginHorizontal="4sp"
+            android:layout_marginVertical="4sp"
             android:backgroundTint="@color/ice"
             app:icon="@drawable/ic_check"
             app:iconTint="@color/ice" />
 
-    </LinearLayout>
+    </com.google.android.flexbox.FlexboxLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
