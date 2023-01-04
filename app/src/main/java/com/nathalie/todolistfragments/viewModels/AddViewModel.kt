@@ -8,7 +8,6 @@ import com.nathalie.todolistfragments.repository.NoteRepository
 
 class AddViewModel(private val repo: NoteRepository): ViewModel() {
     fun addTask(note: Note){
-        Log.d("Add", note.toString())
         repo.addNote(note)
     }
 

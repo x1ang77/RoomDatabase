@@ -85,7 +85,6 @@ class EditFragment : Fragment() {
             if (validate(title, details)) {
                 val note = Note(id, title, details, color)
                 viewModel.updateNote(navArgs.id, note)
-
                 val bundle = Bundle()
                 bundle.putBoolean("refresh", true)
                 setFragmentResult("from_edit", bundle)

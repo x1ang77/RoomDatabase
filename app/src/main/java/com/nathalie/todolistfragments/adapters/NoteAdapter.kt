@@ -34,6 +34,7 @@ class NoteAdapter(
             tvTitle.text = item.title
             tvDetails.text = item.details
             cvNoteItem.setCardBackgroundColor(Color.parseColor(item.color))
+
             cvNoteItem.setOnClickListener {
                 onClick(item)
             }
