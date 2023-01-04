@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Todo.Text.Base" parent="">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Todo.Title" parent="Todo.Text.Base">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Todo.Body" parent="Todo.Text.Base">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Todo.Text.Red" parent="Todo.Text.Base">
+        <item name="android:textColor">@color/red_500</item>
+    </style>
+
+    <style name="Todo.Text.Primary" parent="Todo.Text.Base">
+        <item name="android:textColor">#3F51B5</item>
+    </style>
+
+    <style name="Todo.CustomAlert" parent="android:Theme.Material.Dialog.Alert">
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowBackground">#AFE3EB</item>
+    </style>
+</resources>
