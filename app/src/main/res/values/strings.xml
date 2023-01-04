@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">ToDoListFragments</string>
+    <string name="home_fragment">Home fragment</string>
+    <string name="details_fragment">Details fragment</string>
+    <string name="btn_navigate_to_details">Navigate to details</string>
+    <string name="add_item_fragment">Add Item Fragment</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
