@@ -8,7 +8,6 @@ import com.justin.todolist.data.models.Task
 
 @Dao
 interface TaskDao {
-
     @Query("SELECT * FROM task")
     suspend fun getTasks(): List<Task>
 

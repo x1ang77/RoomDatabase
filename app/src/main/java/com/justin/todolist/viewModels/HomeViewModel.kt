@@ -3,8 +3,10 @@ package com.justin.todolist.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.justin.todolist.data.models.Task
 import com.justin.todolist.repository.TaskRepository
+import kotlinx.coroutines.launch
 
 class HomeViewModel(val repo: TaskRepository) : ViewModel() {
     val tasks: MutableLiveData<List<Task>> = MutableLiveData()
@@ -14,8 +16,10 @@ class HomeViewModel(val repo: TaskRepository) : ViewModel() {
     }
 
     fun getTasks() {
-        val res = repo.getTasks()
-        tasks.value = res
+        viewModelScope.launch {
+            val res = repo.getTasks()
+            tasks.value = res
+        }
     }
 
     class Provider(val repo: TaskRepository) : ViewModelProvider.Factory {

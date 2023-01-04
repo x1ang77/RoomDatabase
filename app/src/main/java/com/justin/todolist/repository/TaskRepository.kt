@@ -1,45 +1,26 @@
 package com.justin.todolist.repository
 
+import com.justin.todolist.data.TaskDao
 import com.justin.todolist.data.models.Task
 
-class TaskRepository {
-    private var counter = 0
-    private val taskMap: MutableMap<Int, Task> = mutableMapOf(
-        0 to Task(0, "Bug 1001", "13/12/22", "Fix Bugs")
-    )
-    fun getTasks(): List<Task> {
-        return taskMap.values.toList()
+class TaskRepository(private val taskDao: TaskDao) {
+    suspend fun getTasks(): List<Task> {
+        return taskDao.getTasks()
     }
 
-    fun getTaskById(id: Int): Task? {
-        return taskMap[id]
+    suspend fun getTaskById(id: Int): Task? {
+        return taskDao.getTaskById(id)
     }
 
-    fun addTask(task: Task): Task? {
-//        taskMap[++counter] = task
-        taskMap[++counter] = task.copy(id = counter)
-        return taskMap[counter]
+    suspend fun addTask(task: Task) {
+        taskDao.insert(task)
     }
 
-    fun updateTask(id: Int, task: Task): Task? {
-        taskMap[id] = task
-        return taskMap[id]
+    suspend fun updateTask(id: Int, task: Task) {
+        taskDao.insert(task.copy(id = id))
     }
 
-    fun deleteTask(id: Int) {
-        taskMap.remove(id)
-    }
-
-    companion object {
-        private var taskRepository: TaskRepository? = null
-        fun getInstance(): TaskRepository {
-            if (taskRepository == null) {
-                taskRepository = TaskRepository()
-            }
-
-            return taskRepository!!
-        }
+    suspend fun deleteTask(id: Int) {
+        taskDao.delete(id)
     }
 }
-
-// Singleton
