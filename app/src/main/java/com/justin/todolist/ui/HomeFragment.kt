@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.justin.todolist.MyApplication
@@ -28,6 +30,8 @@ class HomeFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentHomeBinding.inflate(layoutInflater)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
         return binding.root
     }
 
@@ -35,20 +39,31 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setupAdapter()
+        viewModel.goToAddTask.asLiveData().observe(viewLifecycleOwner) {
+            val action = HomeFragmentDirections.actionHomeToAddItem()
+            NavHostFragment.findNavController(this).navigate(action)
+        }
         viewModel.tasks.observe(viewLifecycleOwner) {
             binding.ivEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
             adapter.setTasks(it)
         }
 
-        binding.fabAdd.setOnClickListener {
-            val action = HomeFragmentDirections.actionHomeToAddItem()
-            NavHostFragment.findNavController(this).navigate(action)
-        }
+//        binding.fabAdd.setOnClickListener {
+//            val action = HomeFragmentDirections.actionHomeToAddItem()
+//            NavHostFragment.findNavController(this).navigate(action)
+//        }
 
 //        binding.btnNavigate.setOnClickListener {
 //            val action = HomeFragmentDirections.actionHomeToImageGallery()
 //            NavHostFragment.findNavController(this).navigate(action)
 //        }
+
+        setFragmentResultListener("from_home") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            if (refresh) {
+                viewModel.getTasks()
+            }
+        }
 
         setFragmentResultListener("from_details") { _, result ->
             val refresh = result.getBoolean("refresh")
@@ -64,6 +79,13 @@ class HomeFragment : Fragment() {
             }
         }
 
+        setFragmentResultListener("from_edit_item") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            if (refresh) {
+                viewModel.getTasks()
+            }
+        }
+
         setFragmentResultListener("from_image_gallery") { _, result ->
             val msg = result.getString("greeting")
             Toast.makeText(requireActivity().applicationContext, msg, Toast.LENGTH_LONG).show()
@@ -72,12 +94,19 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList()) {
+        adapter = TaskAdapter(emptyList(), {
             if (it.id != null) {
                 val action = HomeFragmentDirections.actionHomeToDetails(it.id)
                 NavHostFragment.findNavController(this).navigate(action)
             }
-        }
+        }, {
+            viewModel.deleteTask(it.id!!)
+            val bundle = Bundle()
+            bundle.putBoolean("refresh", true)
+            setFragmentResult("from_home", bundle)
+            val action = HomeFragmentDirections.toHome()
+            NavHostFragment.findNavController(this).navigate(action)
+        })
         binding.rvTasks.adapter = adapter
         binding.rvTasks.layoutManager = layoutManager
     }

@@ -40,11 +40,14 @@
         <action
             android:id="@+id/action_details_to_imageGallery"
             app:destination="@id/imageGalleryFragment"
-            app:popUpTo="@id/homeFragment"
             app:enterAnim="@anim/slide_from_right"
             app:exitAnim="@anim/slide_to_left"
             app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_to_right" />
+            app:popExitAnim="@anim/slide_to_right"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_editTaskFragment"
+            app:destination="@id/editTaskFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
@@ -56,4 +59,13 @@
         android:name="com.justin.todolist.ui.ImageGalleryFragment"
         android:label="fragment_image_gallery"
         tools:layout="@layout/fragment_image_gallery" />
+    <fragment
+        android:id="@+id/editTaskFragment"
+        android:name="com.justin.todolist.ui.EditTaskFragment"
+        android:label="fragment_edit_task"
+        tools:layout="@layout/fragment_edit_task">
+        <argument
+            android:name="id"
+            app:argType="integer" />
+    </fragment>
 </navigation>

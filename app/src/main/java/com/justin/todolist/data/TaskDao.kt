@@ -11,7 +11,7 @@ interface TaskDao {
     @Query("SELECT * FROM task")
     suspend fun getTasks(): List<Task>
 
-    @Query("SELECT * FROM task where id = :id")
+    @Query("SELECT * FROM task WHERE id = :id")
     suspend fun getTaskById(id: Int): Task?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,4 +19,9 @@ interface TaskDao {
 
     @Query("DELETE FROM task WHERE id = :id")
     suspend fun delete(id: Int)
+
+    // for filtering
+    // used LIKE instead of EQUALS
+    @Query("SELECT * FROM task WHERE title LIKE :title")
+    suspend fun getTasksByTitle(title: String): List<Task>
 }

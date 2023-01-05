@@ -10,7 +10,8 @@ import com.justin.todolist.data.models.Task
 // Recycler view displays a list of data dynamically
 class TaskAdapter(
     private var items: List<Task>,
-    val onClick: (task: Task) -> Unit
+    val onClick: (task: Task) -> Unit,
+    val onDeleteClicked: (task: Task) -> Unit
 ) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
     // this creates the UI
@@ -28,6 +29,9 @@ class TaskAdapter(
             tvDate.text = item.date
             cvTaskItem.setOnClickListener {
                 onClick(item)
+            }
+            btnDelete.setOnClickListener {
+                onDeleteClicked(item)
             }
         }
         Log.d("debugging", "Inside onBindViewHolder $position")

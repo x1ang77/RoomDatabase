@@ -15,7 +15,7 @@ import com.justin.todolist.viewModels.DetailsViewModel
 
 class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
-    val viewModel: DetailsViewModel by viewModels {
+    private val viewModel: DetailsViewModel by viewModels {
         DetailsViewModel.Provider((requireContext().applicationContext as MyApplication).taskRepo)
     }
 
@@ -41,6 +41,12 @@ class DetailsFragment : Fragment() {
                 tvDate.text = it.date
                 tvDetails.text = it.details
             }
+        }
+
+        binding.btnEdit.setOnClickListener {
+            val action =
+                DetailsFragmentDirections.actionDetailsFragmentToEditTaskFragment(navArgs.id)
+            NavHostFragment.findNavController(this).navigate(action)
         }
 
         binding.btnDelete.setOnClickListener {

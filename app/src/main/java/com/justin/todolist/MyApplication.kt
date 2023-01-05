@@ -12,7 +12,11 @@ class MyApplication : Application() {
         super.onCreate()
 
         val todoListDatabase =
-            Room.databaseBuilder(this, TodoListDatabase::class.java, TodoListDatabase.DATABASE_NAME)
+            Room.databaseBuilder(
+                this,
+                TodoListDatabase::class.java,
+                TodoListDatabase.DATABASE_NAME
+            ).fallbackToDestructiveMigration()
                 .build()
 
         taskRepo = TaskRepository(todoListDatabase.taskDao)
