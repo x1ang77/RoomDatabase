@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.joel.todolistfragments.data.model.Task
 import com.joel.todolistfragments.repository.TaskRepository
-import com.joel.todolistfragments.repository.TaskRepositoryFake
+import com.joel.todolistfragments.ui.EditItemFragment
 import kotlinx.coroutines.launch
 
-class DetailsViewModel(private val repo: TaskRepository) : ViewModel() {
+class EditItemViewModel(private val repo: TaskRepository) : ViewModel() {
     val task: MutableLiveData<Task> = MutableLiveData()
 
     fun getTaskById(id: Long) {
@@ -21,15 +21,15 @@ class DetailsViewModel(private val repo: TaskRepository) : ViewModel() {
         }
     }
 
-    fun deleteTask(id: Long) {
+    fun updateTask(id: Long, task: Task) {
         viewModelScope.launch {
-            repo.deleteTask(id)
+            repo.updateTask(id, task)
         }
     }
 
     class Provider(val repo: TaskRepository) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return DetailsViewModel(repo) as T
+            return EditItemViewModel(repo) as T
         }
     }
 }

@@ -2,16 +2,15 @@ package com.joel.todolistfragments.viewModels
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.joel.todolistfragments.model.Task
+import androidx.lifecycle.ViewModelProvider
+import com.joel.todolistfragments.data.model.Task
+import com.joel.todolistfragments.repository.TaskRepository
 
 class MainViewModel : ViewModel() {
-    private val tasksMap: MutableMap<Int, Task> = mutableMapOf(
-        0 to Task(0, "bug fix", "1/1/22", "task 1", 4)
-    )
+    val refreshWords: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val tasks: MutableLiveData<List<Task>> = MutableLiveData(mutableListOf())
-
-    init {
-        tasks.value = tasksMap.values.toList()
+    fun shouldRefreshWords(refresh: Boolean) {
+        refreshWords.value = refresh
     }
+
 }

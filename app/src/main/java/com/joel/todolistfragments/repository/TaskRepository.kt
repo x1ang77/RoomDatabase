@@ -1,45 +1,36 @@
 package com.joel.todolistfragments.repository
 
-import com.joel.todolistfragments.model.Task
+import com.joel.todolistfragments.data.TaskDao
+import com.joel.todolistfragments.data.model.Task
 
-class TaskRepository {
+class TaskRepository(private val taskDao: TaskDao) {
     private var counter = 0L
     private val tasksMap: MutableMap<Long, Task> = mutableMapOf(
         0L to Task(0L, "Bug 10001", "13/12/2022", "Bug fix", 2)
     )
 
-    fun getTasks(): List<Task> {
-        return tasksMap.values.toList()
+    suspend fun getTasks(): List<Task> {
+        return taskDao.getTasks()
     }
 
-    fun addTask(task: Task): Task? {
-        tasksMap[++counter] = task.copy(id = counter)
-        return tasksMap[counter]
+    suspend fun addTask(task: Task) {
+        taskDao.insert(task)
     }
 
-    fun getTaskById(id: Long): Task? {
-        return tasksMap[id]
+    suspend fun getTaskById(id: Long): Task? {
+        return taskDao.getTaskById(id)
     }
 
-    fun updateTask(id: Long, task: Task): Task? {
-        tasksMap[id] = task
-        return tasksMap[id]
+    suspend fun updateTask(id: Long, task: Task) {
+        taskDao.insert(task.copy(id = id))
     }
 
-    fun deleteTask(id: Long) {
-        tasksMap.remove(id)
+    suspend fun deleteTask(id: Long) {
+        taskDao.delete(id)
     }
 
-    companion object {
-        private var taskRepository: TaskRepository? = null
-
-        fun getInstance(): TaskRepository {
-            if (taskRepository == null) {
-                taskRepository = TaskRepository()
-            }
-
-            return taskRepository!!
-        }
+    suspend fun getTasksByTitle(title: String): List<Task> {
+        return taskDao.getTasksByTitle(title)
     }
 }
 

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.joel.todolistfragments.databinding.ItemTaskLayoutBinding
-import com.joel.todolistfragments.model.Task
+import com.joel.todolistfragments.data.model.Task
 
 class TaskAdapter(private var items: List<Task>, val onClick: (item: Task) -> Unit) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {

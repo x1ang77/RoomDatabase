@@ -12,7 +12,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.joel.todolistfragments.R
 import com.joel.todolistfragments.adapters.ImageSliderAdapter
 import com.joel.todolistfragments.databinding.FragmentImageGalleryBinding
-import com.joel.todolistfragments.model.Image
+import com.joel.todolistfragments.data.model.Image
 import kotlinx.coroutines.delay
 
 class ImageGalleryFragment : Fragment() {

@@ -31,13 +31,29 @@
         android:text="Details"
         android:textSize="20sp" />
 
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
+        android:text="Edit" />
+
     <Button
         android:id="@+id/btn_delete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#f00"
         android:text="Delete" />
+
+    <Button
+        android:id="@+id/btn_details_back_to_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Back to Home" />
 
     <Button
         android:id="@+id/btn_image_gallery"
@@ -45,6 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="10dp"
-        android:text="Image Gallery" />
+        android:text="To Image Gallery" />
 
 </LinearLayout>

@@ -32,13 +32,6 @@
         android:name="com.joel.todolistfragments.ui.DetailsFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_details">
-        <action
-            android:id="@+id/action_home_to_details"
-            app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/slide_from_right"
-            app:exitAnim="@anim/slide_to_left"
-            app:popEnterAnim="@anim/slide_from_left"
-            app:popExitAnim="@anim/slide_to_right" />
         <argument
             android:name="id"
             app:argType="long" />
@@ -50,6 +43,9 @@
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_to_right"
             app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_details_to_editItem"
+            app:destination="@id/editItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
@@ -61,4 +57,12 @@
         android:name="com.joel.todolistfragments.ui.ImageGalleryFragment"
         android:label="fragment_image_gallery"
         tools:layout="@layout/fragment_image_gallery" />
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="com.joel.todolistfragments.ui.EditItemFragment"
+        android:label="EditItemFragment">
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
 </navigation>

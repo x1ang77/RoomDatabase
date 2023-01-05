@@ -9,13 +9,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        var i = 0
-        val x = i++
-        val y = ++i
-
-        Toast.makeText(this, "Hello", Toast.LENGTH_LONG).show()
-
     }
 }
 // File Manager

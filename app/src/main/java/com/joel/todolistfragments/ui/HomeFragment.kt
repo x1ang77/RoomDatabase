@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.joel.todolistfragments.MainActivity
 import com.joel.todolistfragments.MyApplication
 import com.joel.todolistfragments.R
 import com.joel.todolistfragments.adapters.TaskAdapter
@@ -26,6 +27,7 @@ class HomeFragment : Fragment() {
         HomeViewModel.Provider((requireContext().applicationContext as MyApplication).taskRepo)
     }
     private lateinit var adapter: TaskAdapter
+    private val mainViewModel: MainViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,9 +41,14 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navArgs: DetailsFragmentArgs by navArgs()
-
         setupAdapter()
+
+        mainViewModel.refreshWords.observe(viewLifecycleOwner) {
+            if (it) {
+                viewModel.getTasks()
+                mainViewModel.shouldRefreshWords(false)
+            }
+        }
 
         viewModel.tasks.observe(viewLifecycleOwner) {
             adapter.setTasks(it)
@@ -51,8 +58,6 @@ class HomeFragment : Fragment() {
 //            binding.rvItems.layoutManager = layoutManager
         }
 
-
-
         binding.fabAddNewItem.setOnClickListener {
             val action = HomeFragmentDirections.actionHomeToAddItem()
             NavHostFragment.findNavController(this).navigate(action)
@@ -60,16 +65,13 @@ class HomeFragment : Fragment() {
 
         setFragmentResultListener("from_details") { _, result ->
             val refresh = result.getBoolean("refresh")
-            if (refresh) {
-                viewModel.getTasks()
-            }
+            mainViewModel.shouldRefreshWords(refresh)
         }
 
         setFragmentResultListener("from_add_item") { _, result ->
             val refresh = result.getBoolean("refresh")
-            if (refresh) {
-                viewModel.getTasks()
-            }
+            mainViewModel.shouldRefreshWords(refresh)
+
         }
     }
 
@@ -79,7 +81,6 @@ class HomeFragment : Fragment() {
             val action = HomeFragmentDirections.actionHomeToDetails(it.id!!)
             NavHostFragment.findNavController(this).navigate(action)
         }
-        // if(it.id != null) { lines 77 && 78 }
         binding.rvItems.adapter = adapter
         binding.rvItems.layoutManager = layoutManager
     }
