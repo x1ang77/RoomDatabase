@@ -9,14 +9,11 @@ import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.NavHostFragment
 import com.chiaching.todolistfragments.MyApplication
-import com.chiaching.todolistfragments.R
 import com.chiaching.todolistfragments.databinding.FragmentAddItemBinding
-import com.chiaching.todolistfragments.databinding.FragmentHomeBinding
-import com.chiaching.todolistfragments.model.Task
+import com.chiaching.todolistfragments.data.model.Task
 import com.chiaching.todolistfragments.viewModels.AddTaskViewModel
 
 class AddItemFragment : Fragment() {
-    // TODO: Rename and change types of parameters
 
     private lateinit var binding : FragmentAddItemBinding
     private val viewModel: AddTaskViewModel by viewModels {
@@ -40,7 +37,7 @@ class AddItemFragment : Fragment() {
             val title = binding.etTitle.text.toString()
             val date = binding.etDate.text.toString()
             val details = binding.etDetails.text.toString()
-            viewModel.addTask(Task(null,title,date,details, 0))
+            viewModel.addTask(Task(null,title,date,details))
             val bundle = Bundle()
             bundle.putBoolean("refresh", true)
             setFragmentResult("from_add_item",bundle)

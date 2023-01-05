@@ -4,11 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chiaching.todolistfragments.databinding.ItemLayoutTaskBinding
-import com.chiaching.todolistfragments.model.Task
+import com.chiaching.todolistfragments.data.model.Task
 
 class TaskAdapter(
-     var items: List<Task>,
-     val onClick:(item: Task) -> Unit
+    var items: List<Task>,
+    val onClick:(item: Task) -> Unit
 ): RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTaskHolder {

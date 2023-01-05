@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.chiaching.todolistfragments.R
 import com.chiaching.todolistfragments.adapters.ImageSliderAdapter
 import com.chiaching.todolistfragments.databinding.FragmentImageGalleryBinding
-import com.chiaching.todolistfragments.model.Image
+import com.chiaching.todolistfragments.data.model.Image
 import kotlinx.coroutines.delay
 
 class ImageGalleryFragment: Fragment() {

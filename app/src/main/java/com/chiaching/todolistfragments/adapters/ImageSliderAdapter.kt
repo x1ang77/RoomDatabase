@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.chiaching.todolistfragments.databinding.ItemLayoutImageBinding
-import com.chiaching.todolistfragments.model.Image
+import com.chiaching.todolistfragments.data.model.Image
 
 
 class ImageSliderAdapter(private var items: List<Image>): RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {

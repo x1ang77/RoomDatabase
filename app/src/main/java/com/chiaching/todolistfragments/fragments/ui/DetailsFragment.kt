@@ -65,5 +65,11 @@ class DetailsFragment : Fragment() {
             setFragmentResult("from_details",bundle)
             NavHostFragment.findNavController(this).popBackStack()
         }
+
+
+        binding.btnEdit.setOnClickListener {
+            NavHostFragment.findNavController(this).navigate(DetailsFragmentDirections.actionDetailsFragmentToEditItemFragment(navArgs.id!!))
+        }
+
     }
 }

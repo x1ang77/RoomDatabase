@@ -1,11 +1,15 @@
-package com.chiaching.todolistfragments.model
+package com.chiaching.todolistfragments.data.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity
 data class Task(
-    val id: Long? = null,
+    @PrimaryKey
+    val id: Int? = null,
     val title: String,
     val date: String,
     val details: String,
-    val priority: Short
 )
 
 //{

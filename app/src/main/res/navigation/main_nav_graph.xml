@@ -51,6 +51,9 @@
             app:popEnterAnim="@anim/slide_from_left"
             app:popUpTo="@id/homeFragment"
             />
+        <action
+            android:id="@+id/action_detailsFragment_to_editItemFragment"
+            app:destination="@id/editItemFragment" />
 
 
     </fragment>
@@ -65,5 +68,15 @@
         android:name="com.chiaching.todolistfragments.fragments.ui.ImageGalleryFragment"
         android:label="fragment_image_gallery"
         tools:layout="@layout/fragment_image_gallery" />
+    <fragment
+        android:id="@+id/editItemFragment"
+        android:name="com.chiaching.todolistfragments.fragments.ui.EditItemFragment"
+        android:label="fragment_edit_item"
+        tools:layout="@layout/fragment_edit_item" >
+        <argument
+            android:name="id"
+            app:argType="long"
+            />
+    </fragment>
 
 </navigation>

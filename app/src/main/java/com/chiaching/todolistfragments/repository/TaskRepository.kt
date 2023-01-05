@@ -1,45 +1,35 @@
 package com.chiaching.todolistfragments.repository
 
-import com.chiaching.todolistfragments.model.Task
+import androidx.lifecycle.MutableLiveData
+import com.chiaching.todolistfragments.data.TaskDao
+import com.chiaching.todolistfragments.data.model.Task
 
-class TaskRepository {
-    var counter = 0L
-    val taskMap: MutableMap<Long, Task> = mutableMapOf(
-        0L to Task(0L,"Bug Fixed","21/12/22","Fix Bug",9)
-    )
+class TaskRepository(private val taskDao: TaskDao){
 
-    fun getTasks(): List<Task> {
-        return taskMap.values.toList()
+    suspend fun getTasks(): List<Task> {
+        return taskDao.getTasks()
     }
 
-    fun addTask(task: Task): Task?{
-        taskMap[++counter] = task.copy(id = counter)
-        return taskMap[counter]
+    suspend fun addTask(task: Task){
+        taskDao.insert(task)
     }
 
-    fun getTaskById(id: Long) :Task?{
-        return taskMap[id]
+    suspend fun getTaskById(id: Int) : Task?{
+        return taskDao.getTaskById(id)
     }
 
-    fun updateTask(id:Long, task:Task): Task?{
-        taskMap[id] = task
-        return taskMap[id]
+    suspend fun updateTask(id: Long, task: Task){
+        taskDao.insert(task.copy(id.toInt()))
     }
 
-    fun deleteTask(id:Long){
-        taskMap.remove(id)
+    suspend fun deleteTask(id:Int){
+        taskDao.delete(id)
     }
 
-    companion object{
-        private var taskRepository: TaskRepository? = null
-
-        fun getInstance(): TaskRepository{
-            if(taskRepository == null){
-                taskRepository = TaskRepository()
-            }
-            return taskRepository!!
-        }
+    suspend fun getTaskByTitle(title: String):List<Task>{
+        return taskDao.getTaskByTitle(title)
     }
+
 }
 
 // Singleton

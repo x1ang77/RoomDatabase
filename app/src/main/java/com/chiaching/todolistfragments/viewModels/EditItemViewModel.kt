@@ -6,11 +6,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.chiaching.todolistfragments.data.model.Task
 import com.chiaching.todolistfragments.repository.TaskRepository
-import com.chiaching.todolistfragments.repository.TaskRepositoryFake
 import kotlinx.coroutines.launch
 
-class DetailsViewModel(private val repo: TaskRepository):ViewModel() {
+class EditItemViewModel(private val repo: TaskRepository): ViewModel() {
     val task: MutableLiveData<Task> = MutableLiveData()
+
+    fun editTask(id: Long, task: Task){
+        viewModelScope.launch {
+            repo.updateTask(id, task)
+        }
+    }
 
     fun getTaskById(id:Long){
         viewModelScope.launch{
@@ -21,15 +26,11 @@ class DetailsViewModel(private val repo: TaskRepository):ViewModel() {
         }
     }
 
-    fun deleteTask(id:Long){
-        viewModelScope.launch {
-            repo.deleteTask(id.toInt())
-        }
-    }
+
 
     class Provider(private val repo: TaskRepository): ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return DetailsViewModel(repo) as T
+            return EditItemViewModel(repo) as T
         }
     }
 }
