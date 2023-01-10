@@ -39,7 +39,7 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:onClick="@{() -> viewModel.navigateToAddTask()}"
-            app:icon="@drawable/ic_baseline_add_32"
+            app:icon="@drawable/ic_add"
             app:iconTint="@color/white" />
 
         <!--    <Button-->

@@ -2,6 +2,7 @@ package com.justin.todolist.adapters
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.justin.todolist.databinding.TaskItemLayoutBinding
@@ -10,8 +11,9 @@ import com.justin.todolist.data.models.Task
 // Recycler view displays a list of data dynamically
 class TaskAdapter(
     private var items: List<Task>,
-    val onClick: (task: Task) -> Unit,
-    val onDeleteClicked: (task: Task) -> Unit
+    val onClick: (item: Task) -> Unit,
+    val onLongClick: (item: Task) -> Unit,
+    val onMoreClick: (view: View, item: Task) -> Unit
 ) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
     // this creates the UI
@@ -30,8 +32,13 @@ class TaskAdapter(
             cvTaskItem.setOnClickListener {
                 onClick(item)
             }
-            btnDelete.setOnClickListener {
-                onDeleteClicked(item)
+            cvTaskItem.setOnLongClickListener {
+                onLongClick(item)
+//                return@setOnLongClickListener true
+                true
+            }
+            ibMore.setOnClickListener {
+                onMoreClick(it, item)
             }
         }
         Log.d("debugging", "Inside onBindViewHolder $position")

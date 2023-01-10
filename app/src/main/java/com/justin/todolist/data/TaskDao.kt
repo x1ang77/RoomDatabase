@@ -21,7 +21,7 @@ interface TaskDao {
     suspend fun delete(id: Int)
 
     // for filtering
-    // used LIKE instead of EQUALS
+    // used LIKE instead of = (the equal symbol)
     @Query("SELECT * FROM task WHERE title LIKE :title")
     suspend fun getTasksByTitle(title: String): List<Task>
 }

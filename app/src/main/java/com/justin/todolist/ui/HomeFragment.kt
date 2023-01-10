@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -13,6 +14,7 @@ import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.justin.todolist.MyApplication
+import com.justin.todolist.R
 import com.justin.todolist.adapters.TaskAdapter
 import com.justin.todolist.databinding.FragmentHomeBinding
 import com.justin.todolist.viewModels.HomeViewModel
@@ -94,19 +96,47 @@ class HomeFragment : Fragment() {
 
     private fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList(), {
-            if (it.id != null) {
-                val action = HomeFragmentDirections.actionHomeToDetails(it.id)
-                NavHostFragment.findNavController(this).navigate(action)
+        adapter = TaskAdapter(
+            emptyList(),
+            {
+                if (it.id != null) {
+                    val action = HomeFragmentDirections.actionHomeToDetails(it.id)
+                    NavHostFragment.findNavController(this).navigate(action)
+                }
+            },
+            {
+                val detailsBottomSheetFragment = DetailsBottomSheetFragment(it)
+                detailsBottomSheetFragment.show(childFragmentManager, "Child-Fragment")
+            },
+            { view, task ->
+                val popupMenu = PopupMenu(requireContext(), view)
+                popupMenu.setOnMenuItemClickListener {
+                    return@setOnMenuItemClickListener when (it.itemId) {
+                        R.id.moreEdit -> {
+                            val action =
+                                HomeFragmentDirections.actionHomeFragmentToEditTaskFragment(
+                                    task.id!!
+                                )
+                            NavHostFragment.findNavController(this).navigate(action)
+                            true
+                        }
+                        R.id.moreDelete -> {
+                            viewModel.deleteTask(task.id!!)
+                            val bundle = Bundle()
+                            bundle.putBoolean("refresh", true)
+                            setFragmentResult("from_home", bundle)
+                            val action = HomeFragmentDirections.toHome()
+                            NavHostFragment.findNavController(this).navigate(action)
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                popupMenu.inflate(R.menu.task_actions_menu)
+                popupMenu.setForceShowIcon(true)
+                popupMenu.show()
             }
-        }, {
-            viewModel.deleteTask(it.id!!)
-            val bundle = Bundle()
-            bundle.putBoolean("refresh", true)
-            setFragmentResult("from_home", bundle)
-            val action = HomeFragmentDirections.toHome()
-            NavHostFragment.findNavController(this).navigate(action)
-        })
+        )
         binding.rvTasks.adapter = adapter
         binding.rvTasks.layoutManager = layoutManager
     }
