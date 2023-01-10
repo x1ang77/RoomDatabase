@@ -26,7 +26,7 @@ class EditViewModel(private val repo: NoteRepository): ViewModel() {
         repo.updateNote(id, task)
     }
 
-    class Provider(val repo: NoteRepository) : ViewModelProvider.Factory {
+    class Provider(val repo: NoteRepository) : ViewModelProvider.Factory{
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             return EditViewModel(repo) as T
         }
