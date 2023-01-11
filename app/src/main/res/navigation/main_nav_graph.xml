@@ -12,7 +12,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.justin.todolist.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_details"
@@ -35,7 +35,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.justin.todolist.ui.DetailsFragment"
-        android:label="fragment_details"
+        android:label="Details"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="id"
@@ -55,7 +55,7 @@
     <fragment
         android:id="@+id/addItemFragment"
         android:name="com.justin.todolist.ui.AddItemFragment"
-        android:label="fragment_add_item"
+        android:label="Add Item"
         tools:layout="@layout/fragment_add_item" />
     <fragment
         android:id="@+id/imageGalleryFragment"
@@ -65,10 +65,15 @@
     <fragment
         android:id="@+id/editTaskFragment"
         android:name="com.justin.todolist.ui.EditTaskFragment"
-        android:label="fragment_edit_task"
+        android:label="Edit Task"
         tools:layout="@layout/fragment_edit_task">
         <argument
             android:name="id"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.justin.todolist.ui.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

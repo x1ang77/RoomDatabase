@@ -3,23 +3,33 @@ package com.justin.todolist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationView
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // i++: assignment occurs first before increment
-        // ++i: increment occurs first before assignment
-        var i = 0
-        val x = i++ // x is 0 because i is first assigned before i becomes 1 from 0
-        val y = ++i // y is 2 because i becomes 2 from 1 before being assigned to y
-        Log.d("Calculation", "$x and $y")
+        navController = findNavController(R.id.navHostFragment)
+        val drawerLayout = findViewById<DrawerLayout>(R.id.drawerLayout)
+        val navigationView = findViewById<NavigationView>(R.id.navigationView)
+        appBarConfiguration = AppBarConfiguration(navController.graph, drawerLayout)
 
-//        Toast.makeText(this.applicationContext, "Hello", Toast.LENGTH_LONG).show()
+        navigationView.setupWithNavController(navController)
+        setupActionBarWithNavController(navController, appBarConfiguration)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 }
-
-// fragments are lightweight compared to using activities
-// safeargs are used to pass arguments. the arguments are not nullable, and don't need to type
-// getString or getShort, etc

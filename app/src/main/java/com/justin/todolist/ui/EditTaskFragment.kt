@@ -37,6 +37,7 @@ class EditTaskFragment : Fragment() {
 
         viewModel.task.observe(viewLifecycleOwner) {
             binding.run {
+                tvTitle.text = "Update Task"
                 etTitle.setText(it.title)
                 etDetails.setText(it.details)
                 etDate.setText(it.date)
