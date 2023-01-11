@@ -12,4 +12,6 @@
     <color name="red_200">#FB5353</color>
     <color name="red_500">#FF0000</color>
     <color name="blue_500">#3F51B5</color>
+    <color name="light_blue">#71D3FF</color>
+    <color name="transparent">#00000000</color>
 </resources>
