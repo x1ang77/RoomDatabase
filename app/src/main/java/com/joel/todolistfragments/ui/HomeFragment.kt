@@ -1,11 +1,13 @@
 package com.joel.todolistfragments.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.widget.PopupMenu
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -77,10 +79,35 @@ class HomeFragment : Fragment() {
 
     fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList()) {
+        adapter = TaskAdapter(emptyList(), {
             val action = HomeFragmentDirections.actionHomeToDetails(it.id!!)
             NavHostFragment.findNavController(this).navigate(action)
-        }
+        }, {
+            val detailsFragment = DetailsBottomSheetFragment(it)
+            detailsFragment.show(childFragmentManager, "Child-Fragment")
+        }, { view, task ->
+            val popupMenu = PopupMenu(requireContext(), view)
+            popupMenu.setOnMenuItemClickListener {
+                return@setOnMenuItemClickListener when (it.itemId) {
+                    R.id.action1 -> {
+                        Log.d("debugging", "Action 1: ${task.title}")
+                        true
+                    }
+                    R.id.action2 -> {
+                        Log.d("debugging", "Action 2: ${task.title}")
+                        true
+                    }
+                    R.id.action3 -> {
+                        Log.d("debugging", "Action 3: ${task.title}")
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.inflate(R.menu.task_actions)
+            popupMenu.setForceShowIcon(true)
+            popupMenu.show()
+        })
         binding.rvItems.adapter = adapter
         binding.rvItems.layoutManager = layoutManager
     }

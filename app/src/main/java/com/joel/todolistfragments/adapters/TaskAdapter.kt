@@ -1,12 +1,18 @@
 package com.joel.todolistfragments.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.joel.todolistfragments.databinding.ItemTaskLayoutBinding
 import com.joel.todolistfragments.data.model.Task
 
-class TaskAdapter(private var items: List<Task>, val onClick: (item: Task) -> Unit) :
+class TaskAdapter(
+    private var items: List<Task>,
+    val onClick: (item: Task) -> Unit,
+    val onLongClick: (item: Task) -> Unit,
+    val onMoreClick: (view: View, item: Task) -> Unit
+) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTaskHolder {
@@ -22,6 +28,15 @@ class TaskAdapter(private var items: List<Task>, val onClick: (item: Task) -> Un
             tvDate.text = item.date
             cvTaskItem.setOnClickListener {
                 onClick(item)
+            }
+
+            cvTaskItem.setOnLongClickListener {
+                onLongClick(item)
+                return@setOnLongClickListener true
+            }
+
+            ivMore.setOnClickListener {
+                onMoreClick(it, item)
             }
         }
     } // bind data to UI above
