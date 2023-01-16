@@ -1,20 +1,24 @@
 package com.caaron.todolistfragment.ui
 
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.caaron.todolist.adapters.TaskAdapter
 import com.caaron.todolistfragment.MyApplication
+import com.caaron.todolistfragment.R
 import com.caaron.todolistfragment.databinding.FragmentHomeBinding
-import com.caaron.todolistfragment.model.Task
+import com.caaron.todolistfragment.data.model.Task
 import com.caaron.todolistfragment.viewModels.HomeViewModel
 
 class HomeFragment : Fragment() {
@@ -68,6 +72,13 @@ class HomeFragment : Fragment() {
             }
         }
 
+        setFragmentResultListener("from_edit") { _, result ->
+            val refresh = result.getBoolean("refresh")
+            if (refresh) {
+                viewModel.getTasks()
+            }
+        }
+
         setFragmentResultListener("from_add_item") { _, result ->
             val refresh = result.getBoolean("refresh")
             if (refresh) {
@@ -82,14 +93,43 @@ class HomeFragment : Fragment() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.Q)
     fun setUpAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList()) {
-            if (it.id != null) {
+        adapter = TaskAdapter(
+            emptyList(),
+            {
                 val action = HomeFragmentDirections.actionHomeToDetails(it.id!!)
                 NavHostFragment.findNavController(this).navigate(action)
+            },
+            {
+                val detailsFragment = DetailsBottomSheetFragment(it)
+                detailsFragment.show(childFragmentManager,"Child-Fragment")
+            },
+            { view, task ->
+                val popupMenu = PopupMenu(requireContext(), view)
+                popupMenu.setOnMenuItemClickListener {
+                    return@setOnMenuItemClickListener when(it.itemId){
+                        R.id.action1 ->{
+                            Log.d("debug","Action 1 :${task.title}")
+                            true
+                        }
+                        R.id.action2 ->{
+                            Log.d("debug","Action 2 :${task.title}")
+                            true
+                        }
+                        R.id.action3 ->{
+                            Log.d("debug","Action 3 :${task.title}")
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                popupMenu.inflate(R.menu.task_actions)
+                popupMenu.setForceShowIcon(true)
+                popupMenu.show()
             }
-        }
+        )
         binding.rvTasks.adapter = adapter
         binding.rvTasks.layoutManager = layoutManager
     }

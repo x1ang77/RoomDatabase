@@ -1,41 +1,32 @@
 package com.caaron.todolistfragment.repository
 
-import com.caaron.todolistfragment.model.Task
+import com.caaron.todolistfragment.data.TaskDao
+import com.caaron.todolistfragment.data.model.Task
 
-class TaskRepository {
-    var counter = 0L
-    val taskMap: MutableMap<Long, Task> = mutableMapOf(
-        0L to Task(0L,"Bug 10001", "23/12/22","Fix Bug",9)
-    )
-    fun getTasks(): List<Task>{
-        return taskMap.values.toList()
+class TaskRepository(private val taskDao: TaskDao) {
+
+    suspend fun getTasks(): List<Task> {
+        return taskDao.getTasks()
     }
 
-    fun addTask(task:Task):Task?{
-        taskMap[++counter] = task.copy(id = counter)
-        return taskMap[counter]
+    suspend fun addTask(task: Task) {
+        taskDao.insert(task)
     }
 
-    fun getTaskById(id: Long):Task?{
-        return taskMap[id]
+    suspend fun getTaskById(id: Long): Task? {
+        return taskDao.getTaskById(id)
     }
 
-    fun updateTask(id:Long, task:Task):Task?{
-        taskMap[id] = task
-        return taskMap[id]
+    suspend fun updateTask(id: Long, task: Task) {
+        taskDao.insert(task.copy(id = id))
     }
 
-    fun deleteTask(id: Long){
-        taskMap.remove(id)
+    suspend fun deleteTask(id: Long) {
+        taskDao.delete(id)
     }
 
-    companion object{
-        private var taskRepository:TaskRepository? = null
-        fun getInstance():TaskRepository{
-            if(taskRepository == null){
-                taskRepository = TaskRepository()
-            }
-            return taskRepository!!
-        }
+    suspend fun getTaskByTitle(title: String): List<Task>{
+        return taskDao.getTaskByTitle(title)
     }
+
 }

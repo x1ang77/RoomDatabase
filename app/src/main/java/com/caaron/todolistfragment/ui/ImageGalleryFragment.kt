@@ -13,10 +13,8 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.caaron.todolistfragment.R
 import com.caaron.todolistfragment.adapters.ImageSliderAdapter
 import com.caaron.todolistfragment.databinding.FragmentImageGalleryBinding
-import com.caaron.todolistfragment.model.Image
-import kotlinx.coroutines.GlobalScope
+import com.caaron.todolistfragment.data.model.Image
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 class ImageGalleryFragment : Fragment() {
     private lateinit var binding: FragmentImageGalleryBinding

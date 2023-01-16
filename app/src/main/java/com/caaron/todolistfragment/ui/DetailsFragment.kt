@@ -41,7 +41,13 @@ class DetailsFragment : Fragment() {
             NavHostFragment.findNavController(this).navigate(action)
         }
 
+        binding.btnEdit.setOnClickListener {
+            val action = DetailsFragmentDirections.actionDetailsFragmentToUpdateItemFragment(navArgs.id)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
+
         viewModel.getTaskById(navArgs.id)
+
         viewModel.task.observe(viewLifecycleOwner){
             binding.run{
                 tvTitle.text = it.title

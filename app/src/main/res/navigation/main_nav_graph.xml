@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.caaron.todolistfragment.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_home_to_details"
@@ -42,6 +42,9 @@
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_to_right"
             app:popUpTo="@id/homeFragment"/>
+        <action
+            android:id="@+id/action_detailsFragment_to_updateItemFragment"
+            app:destination="@id/updateItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
@@ -53,4 +56,19 @@
         android:name="com.caaron.todolistfragment.ui.ImageGalleryFragment"
         android:label="fragment_image_gallery"
         tools:layout="@layout/fragment_image_gallery" />
+    <fragment
+        android:id="@+id/updateItemFragment"
+        android:name="com.caaron.todolistfragment.ui.UpdateItemFragment"
+        android:label="fragment_update_item"
+        tools:layout="@layout/fragment_update_item" >
+        <argument
+            android:name="id"
+            android:defaultValue="0L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.caaron.todolistfragment.ui.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

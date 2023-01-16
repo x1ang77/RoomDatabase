@@ -3,8 +3,11 @@ package com.caaron.todolistfragment.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.caaron.todolistfragment.model.Task
+import androidx.lifecycle.viewModelScope
+import com.caaron.todolistfragment.data.model.Task
 import com.caaron.todolistfragment.repository.TaskRepository
+import com.caaron.todolistfragment.repository.TaskRepositoryFake
+import kotlinx.coroutines.launch
 
 class HomeViewModel(val repo: TaskRepository): ViewModel() {
     val tasks: MutableLiveData<List<Task>> = MutableLiveData()
@@ -14,8 +17,10 @@ class HomeViewModel(val repo: TaskRepository): ViewModel() {
     }
 
     fun getTasks(){
+        viewModelScope.launch {
         val res = repo.getTasks()
         tasks.value = res
+        }
     }
 
     class Provider(val repo:TaskRepository): ViewModelProvider.Factory{
