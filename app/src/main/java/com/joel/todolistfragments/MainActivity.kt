@@ -30,11 +30,18 @@ class MainActivity : AppCompatActivity() {
 
         val greeting = GreetingImpl()
         greeting.greeting()
+
+        val list = mutableListOf<Int>(1, 2, 3, 4)
+        val res = list.add2(1, 2)
     }
 
     override fun onSupportNavigateUp(): Boolean {
         return navController.navigateUp(appBarConfiguration) || super.onNavigateUp()
     }
+}
+
+fun MutableList<Int>.add2(a: Int, b: Int): Int {
+    return this[a] + this[b]
 }
 
 interface Greetings {
