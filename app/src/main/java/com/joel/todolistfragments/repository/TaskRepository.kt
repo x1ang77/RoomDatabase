@@ -1,7 +1,7 @@
 package com.joel.todolistfragments.repository
 
 import com.joel.todolistfragments.data.TaskDao
-import com.joel.todolistfragments.data.model.Task
+import com.joel.todolistfragments.data.model.*
 
 class TaskRepository(private val taskDao: TaskDao) {
     private var counter = 0L
@@ -31,6 +31,30 @@ class TaskRepository(private val taskDao: TaskDao) {
 
     suspend fun getTasksByTitle(title: String): List<Task> {
         return taskDao.getTasksByTitle(title)
+    }
+
+    suspend fun insertDept(dept: Dept) {
+        taskDao.insertDept(dept)
+    }
+
+    suspend fun insertStudent(student: Student) {
+        taskDao.insertStudent(student)
+    }
+
+    suspend fun getDepartmentWithStudents(): List<DeptWithStudents> {
+        return taskDao.getDepartmentWithStudents()
+    }
+
+    suspend fun insertSubject(subject: Subject) {
+        taskDao.insertSubject(subject)
+    }
+
+    suspend fun getStudentsWithSubjects(): List<StudentsWithSubjects> {
+        return taskDao.getStudentsWithSubjects()
+    }
+
+    suspend fun insertStudentSubjectCrossRef(studentSubjectCrossRef: StudentSubjectCrossRef) {
+        taskDao.insertStudentSubjectCrossRef(studentSubjectCrossRef)
     }
 }
 

@@ -10,7 +10,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.joel.todolistfragments.ui.HomeFragment"
-        android:label="fragment_home"
+        android:label="Home"
         tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_details"
@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.joel.todolistfragments.ui.DetailsFragment"
-        android:label="fragment_details"
+        android:label="Details"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="id"
@@ -50,19 +50,24 @@
     <fragment
         android:id="@+id/addItemFragment"
         android:name="com.joel.todolistfragments.ui.AddItemFragment"
-        android:label="fragment_add_item"
+        android:label="Add Item"
         tools:layout="@layout/fragment_add_item" />
     <fragment
         android:id="@+id/imageGalleryFragment"
         android:name="com.joel.todolistfragments.ui.ImageGalleryFragment"
-        android:label="fragment_image_gallery"
+        android:label="Image Gallery"
         tools:layout="@layout/fragment_image_gallery" />
     <fragment
         android:id="@+id/editItemFragment"
         android:name="com.joel.todolistfragments.ui.EditItemFragment"
-        android:label="EditItemFragment">
+        android:label="Edit Item">
         <argument
             android:name="id"
             app:argType="long" />
     </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.joel.todolistfragments.ui.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

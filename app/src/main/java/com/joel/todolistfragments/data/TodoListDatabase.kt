@@ -2,10 +2,12 @@ package com.joel.todolistfragments.data
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.joel.todolistfragments.data.model.Task
-import com.joel.todolistfragments.data.model.User
+import com.joel.todolistfragments.data.model.*
 
-@Database(entities = [Task::class, User::class], version = 2)
+@Database(
+    entities = [Task::class, User::class, Student::class, Dept::class, Subject::class, StudentSubjectCrossRef::class],
+    version = 4
+)
 abstract class TodoListDatabase : RoomDatabase() {
     abstract val taskDao: TaskDao
 

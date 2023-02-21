@@ -8,12 +8,11 @@ import com.joel.todolistfragments.databinding.ItemTaskLayoutBinding
 import com.joel.todolistfragments.data.model.Task
 
 class TaskAdapter(
-    private var items: List<Task>,
-    val onClick: (item: Task) -> Unit,
-    val onLongClick: (item: Task) -> Unit,
-    val onMoreClick: (view: View, item: Task) -> Unit
+    private var items: List<Task>
 ) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
+
+    var listener: Listener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemTaskHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,16 +26,16 @@ class TaskAdapter(
             tvTitle.text = item.title
             tvDate.text = item.date
             cvTaskItem.setOnClickListener {
-                onClick(item)
+                listener?.onClick(item)
             }
 
             cvTaskItem.setOnLongClickListener {
-                onLongClick(item)
+                listener?.onLongClick(item)
                 return@setOnLongClickListener true
             }
 
             ivMore.setOnClickListener {
-                onMoreClick(it, item)
+                listener?.onMoreClick(it, item)
             }
         }
     } // bind data to UI above
@@ -49,4 +48,10 @@ class TaskAdapter(
     }
 
     class ItemTaskHolder(val binding: ItemTaskLayoutBinding) : RecyclerView.ViewHolder(binding.root)
+
+    interface Listener {
+        fun onClick(task: Task)
+        fun onLongClick(task: Task)
+        fun onMoreClick(view: View, task: Task)
+    }
 }

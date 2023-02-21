@@ -19,6 +19,7 @@ import com.joel.todolistfragments.MainActivity
 import com.joel.todolistfragments.MyApplication
 import com.joel.todolistfragments.R
 import com.joel.todolistfragments.adapters.TaskAdapter
+import com.joel.todolistfragments.data.model.Task
 import com.joel.todolistfragments.databinding.FragmentHomeBinding
 import com.joel.todolistfragments.viewModels.HomeViewModel
 import com.joel.todolistfragments.viewModels.MainViewModel
@@ -79,35 +80,42 @@ class HomeFragment : Fragment() {
 
     fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList(), {
-            val action = HomeFragmentDirections.actionHomeToDetails(it.id!!)
-            NavHostFragment.findNavController(this).navigate(action)
-        }, {
-            val detailsFragment = DetailsBottomSheetFragment(it)
-            detailsFragment.show(childFragmentManager, "Child-Fragment")
-        }, { view, task ->
-            val popupMenu = PopupMenu(requireContext(), view)
-            popupMenu.setOnMenuItemClickListener {
-                return@setOnMenuItemClickListener when (it.itemId) {
-                    R.id.action1 -> {
-                        Log.d("debugging", "Action 1: ${task.title}")
-                        true
-                    }
-                    R.id.action2 -> {
-                        Log.d("debugging", "Action 2: ${task.title}")
-                        true
-                    }
-                    R.id.action3 -> {
-                        Log.d("debugging", "Action 3: ${task.title}")
-                        true
-                    }
-                    else -> false
-                }
+        adapter = TaskAdapter(emptyList())
+        adapter.listener = object : TaskAdapter.Listener {
+            override fun onClick(task: Task) {
+                val action = HomeFragmentDirections.actionHomeToDetails(task.id!!)
+                NavHostFragment.findNavController(this@HomeFragment).navigate(action)
             }
-            popupMenu.inflate(R.menu.task_actions)
-            popupMenu.setForceShowIcon(true)
-            popupMenu.show()
-        })
+
+            override fun onLongClick(task: Task) {
+                val detailsFragment = DetailsBottomSheetFragment(task)
+                detailsFragment.show(childFragmentManager, "Child-Fragment")
+            }
+
+            override fun onMoreClick(view: View, task: Task) {
+                val popupMenu = PopupMenu(requireContext(), view)
+                popupMenu.setOnMenuItemClickListener {
+                    return@setOnMenuItemClickListener when (it.itemId) {
+                        R.id.action1 -> {
+                            Log.d("debugging", "Action 1: ${task.title}")
+                            true
+                        }
+                        R.id.action2 -> {
+                            Log.d("debugging", "Action 2: ${task.title}")
+                            true
+                        }
+                        R.id.action3 -> {
+                            Log.d("debugging", "Action 3: ${task.title}")
+                            true
+                        }
+                        else -> false
+                    }
+                }
+                popupMenu.inflate(R.menu.task_actions)
+                popupMenu.setForceShowIcon(true)
+                popupMenu.show()
+            }
+        }
         binding.rvItems.adapter = adapter
         binding.rvItems.layoutManager = layoutManager
     }
