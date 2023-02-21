@@ -45,10 +45,6 @@ class BaseGreeting : Greetings {
     override fun greeting() {
         Log.d("debugging", "Hello from kotlin delegation, Base Greeting, greeting()")
     }
-
-    fun test() {
-        Log.d("debugging", "Hello from test")
-    }
 }
 
 class GreetingImpl : Greetings by BaseGreeting()

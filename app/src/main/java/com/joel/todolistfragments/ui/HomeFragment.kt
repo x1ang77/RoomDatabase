@@ -80,7 +80,7 @@ class HomeFragment : Fragment() {
 
     fun setupAdapter() {
         val layoutManager = LinearLayoutManager(requireContext())
-        adapter = TaskAdapter(emptyList())
+        adapter = TaskAdapter(mutableListOf())
         adapter.listener = object : TaskAdapter.Listener {
             override fun onClick(task: Task) {
                 val action = HomeFragmentDirections.actionHomeToDetails(task.id!!)

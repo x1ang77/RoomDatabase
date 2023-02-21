@@ -3,12 +3,14 @@ package com.joel.todolistfragments.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.joel.todolistfragments.databinding.ItemTaskLayoutBinding
 import com.joel.todolistfragments.data.model.Task
+import com.joel.todolistfragments.utils.TaskDiffUtil
 
 class TaskAdapter(
-    private var items: List<Task>
+    private var items: MutableList<Task>
 ) :
     RecyclerView.Adapter<TaskAdapter.ItemTaskHolder>() {
 
@@ -43,8 +45,14 @@ class TaskAdapter(
     override fun getItemCount() = items.size
 
     fun setTasks(items: List<Task>) {
-        this.items = items
-        notifyDataSetChanged()
+//        this.items = items.toMutableList()
+//        notifyDataSetChanged()
+        val taskDiffUtil = TaskDiffUtil(this.items, items)
+        val diffResult = DiffUtil.calculateDiff(taskDiffUtil)
+
+        this.items.clear()
+        this.items.addAll(items)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class ItemTaskHolder(val binding: ItemTaskLayoutBinding) : RecyclerView.ViewHolder(binding.root)
