@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.phuayanhan.todolistfragment.MyApplication
 import com.phuayanhan.todolistfragment.adapter.TaskAdapter
 import com.phuayanhan.todolistfragment.databinding.FragmentHomeBinding
-import com.phuayanhan.todolistfragment.model.Task
+import com.phuayanhan.todolistfragment.data.model.Task
 import com.phuayanhan.todolistfragment.viewModels.HomeViewModel
 
 
@@ -70,6 +70,15 @@ class HomeFragment : Fragment() {
                 viewModel.getTasks()
             }
         }
+        setFragmentResultListener("from_update_item"){_,result->
+            val refresh=result.getBoolean("refresh")
+            Log.d("refresh",refresh.toString())
+            if(refresh){
+                viewModel.getTasks()
+                viewModel.getTasks()
+
+            }
+        }
         setFragmentResultListener("from_image_gallery"){ _, result ->
             val msg = result.getString("refresh")
             Toast.makeText(requireContext(), msg ,Toast.LENGTH_LONG).show()
@@ -77,10 +86,16 @@ class HomeFragment : Fragment() {
     }
     fun setupAdapter(){
         val layoutManager=LinearLayoutManager(requireContext())
-        adapter= TaskAdapter(emptyList()){
+        adapter= TaskAdapter(
+            emptyList(),
+            {
             val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(it.id!!)
             NavHostFragment.findNavController(this).navigate(action)
-        }
+        },{
+            val detailsFragment = DetailsBottomSheetFragment(it)
+            detailsFragment.show(childFragmentManager,"Child-Fragment")
+        })
+
         binding.rvTask.adapter=adapter
         binding.rvTask.layoutManager=layoutManager
     }

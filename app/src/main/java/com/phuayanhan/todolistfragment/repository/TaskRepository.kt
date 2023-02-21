@@ -1,38 +1,26 @@
 package com.phuayanhan.todolistfragment.repository
 
-import com.phuayanhan.todolistfragment.model.Task
+import com.phuayanhan.todolistfragment.data.TaskDao
+import com.phuayanhan.todolistfragment.data.model.Task
 
-class TaskRepository {
-    var counter = 0L
-    val taskMap:MutableMap<Long, Task> = mutableMapOf(
-        0L to Task(0L,"bug 10001","23/12/22","Fix Bug",0)
-    )
-    fun getTasks():List<Task>{
-        return taskMap.values.toList()
-    }
-    fun addTask(task:Task):Task?{
-        taskMap[++counter]=task.copy(id = counter)
-        return taskMap[counter]
-    }
-    fun getTaskById(id:Long):Task? {
-        return taskMap[id]
-    }
-    fun updateTask(id:Long,task:Task):Task?{
-        taskMap[id]=task
-        return taskMap[id]
-    }
-    fun deleteTask(id:Long){
-        taskMap.remove(id)
-    }
-    companion object{
-        private var taskRepository:TaskRepository?=null
+class TaskRepository(private val taskDao: TaskDao) {
 
-        fun createInstance():TaskRepository{
-            if(taskRepository==null){
-                taskRepository = TaskRepository()
-            }
-            return taskRepository!!
-        }
+    suspend fun getTasks():List<Task>{
+        return taskDao.getTasks()
+    }
+    suspend fun addTask(task: Task){
+        taskDao.insert(task)
+    }
+    suspend fun getTaskById(id:Long): Task? {
+        return taskDao.getTaskById(id.toInt())
+    }
+    suspend fun updateTask(id:Long,task: Task){
+        return taskDao.insert(task.copy(id= id))
+    }
+    suspend fun deleteTask(id:Long){
+        taskDao.delete(id.toInt())
+    }
+    suspend fun getTasksByTitle(title:String): List<Task>{
+        return taskDao.getTasksByTitle(title)
     }
 }
-//Singleton

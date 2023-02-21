@@ -12,7 +12,7 @@ import androidx.navigation.fragment.NavHostFragment
 import com.phuayanhan.todolistfragment.MyApplication
 import com.phuayanhan.todolistfragment.R
 import com.phuayanhan.todolistfragment.databinding.FragmentAddTaskBinding
-import com.phuayanhan.todolistfragment.model.Task
+import com.phuayanhan.todolistfragment.data.model.Task
 import com.phuayanhan.todolistfragment.viewModels.AddTaskViewModel
 
 
@@ -24,7 +24,7 @@ class AddTaskFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding=FragmentAddTaskBinding.inflate(layoutInflater)
         return binding.root
     }

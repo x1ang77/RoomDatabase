@@ -57,6 +57,10 @@ class DetailsFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
+        binding.btnEdit.setOnClickListener {
+            val action = DetailsFragmentDirections.actionDetailsFragmentToUpdateFragment(navArgs.id)
+            NavHostFragment.findNavController(this).navigate(action)
+        }
 
     }
 }

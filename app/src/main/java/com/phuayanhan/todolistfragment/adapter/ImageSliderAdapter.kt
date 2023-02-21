@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.phuayanhan.todolistfragment.databinding.ItemLayoutImageBinding
-import com.phuayanhan.todolistfragment.model.Image
+import com.phuayanhan.todolistfragment.data.model.Image
 
 class ImageSliderAdapter(private var items:List<Image>): RecyclerView.Adapter<ImageSliderAdapter.ImageViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {

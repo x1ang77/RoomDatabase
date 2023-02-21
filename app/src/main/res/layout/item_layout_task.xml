@@ -31,34 +31,6 @@
             android:text="Body"
             />
 
-
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="end">
-            <TextView
-                android:id="@+id/tvEdit"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Edit"
-                android:layout_marginEnd="10dp"
-                android:layout_gravity="end"
-                />
-
-            <TextView
-                android:id="@+id/tvDelete"
-                android:clickable="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Delete"
-                android:layout_gravity="end"
-                />
-
-        </LinearLayout>>
-
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

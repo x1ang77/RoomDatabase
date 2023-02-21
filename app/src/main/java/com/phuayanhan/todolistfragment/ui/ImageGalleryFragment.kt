@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.CompositePageTransformer
 import com.phuayanhan.todolistfragment.R
 import com.phuayanhan.todolistfragment.adapter.ImageSliderAdapter
 import com.phuayanhan.todolistfragment.databinding.FragmentImageGalleryBinding
-import com.phuayanhan.todolistfragment.model.Image
+import com.phuayanhan.todolistfragment.data.model.Image
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch

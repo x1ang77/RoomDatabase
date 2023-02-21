@@ -25,6 +25,9 @@
             app:popEnterAnim="@anim/slide_from_left"
             app:popExitAnim="@anim/slide_to_right"
             app:destination="@id/addTaskFragment" />
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
@@ -42,6 +45,9 @@
             app:popExitAnim="@anim/slide_to_right"
             app:popUpTo="@id/homeFragment"
             app:destination="@id/imageGalleryFragment" />
+        <action
+            android:id="@+id/action_detailsFragment_to_updateFragment"
+            app:destination="@id/updateFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTaskFragment"
@@ -53,4 +59,12 @@
         android:name="com.phuayanhan.todolistfragment.ui.ImageGalleryFragment"
         android:label="fragment_image_gallery"
         tools:layout="@layout/fragment_image_gallery" />
+    <fragment
+        android:id="@+id/updateFragment"
+        android:name="com.phuayanhan.todolistfragment.ui.UpdateFragment"
+        android:label="fragment_update"
+        tools:layout="@layout/fragment_update" >
+        <argument android:name="id"
+            app:argType="long"/>
+    </fragment>
 </navigation>
