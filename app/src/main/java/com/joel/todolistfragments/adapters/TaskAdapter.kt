@@ -54,7 +54,6 @@ class TaskAdapter(
         update(oldItems, items) { task1, task2 ->
             task1.id == task2.id
         }
-
     }
 
     class ItemTaskHolder(val binding: ItemTaskLayoutBinding) : RecyclerView.ViewHolder(binding.root)

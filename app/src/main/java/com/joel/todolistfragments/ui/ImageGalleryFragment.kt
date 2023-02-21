@@ -45,7 +45,7 @@ class ImageGalleryFragment : Fragment() {
             NavHostFragment.findNavController(this).popBackStack()
         }
 
-        adapter = ImageSliderAdapter(items)
+        adapter = ImageSliderAdapter(items.toMutableList())
 
         binding.vpImages.let { viewPager ->
             viewPager.adapter = adapter
